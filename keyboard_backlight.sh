@@ -1,6 +1,11 @@
 #!/bin/bash
 
-BACKLIGHT=$(cat /sys/class/leds/smc::kbd_backlight/brightness)
+# Add to /etc/sudoers
+# Cmnd_Alias KBL = keyboard_backlight.sh
+# %wheel ALL = (ALL) NOPASSWD: KBL
+
+BACKLIGHT_PATH="/sys/class/leds/smc::kbd_backlight/brightness"
+BACKLIGHT=$(cat $BACKLIGHT_PATH)
 INCREMENT=15
 ID="Backlight"
 ID_ICON=keyboard
@@ -56,7 +61,7 @@ case $1 in
         fi
         ;;
     *)
-        echo "Use: keyboard-light up|down|total|restore|off"
+        echo "Use: keyboard-backlight up|down|total|restore|off"
         exit 1
         ;;
 esac
@@ -68,5 +73,5 @@ NOTIFY_ID=$(cat $ID_FILE)
 NOTIFY_ID=`notify-send -i $ID_ICON $ID "$PERCENT %" -p -r $NOTIFY_ID`
 
 echo $NOTIFY_ID > $ID_FILE
-echo $TOTAL > /sys/class/leds/smc::kbd_backlight/brightness
+echo $TOTAL > $BACKLIGHT_PATH
 echo $TOTAL > $VALUE_FILE
