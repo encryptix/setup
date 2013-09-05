@@ -1,0 +1,123 @@
+# Conky settings #
+background no
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+#imlib_cache_size 0
+
+temperature_unit celsius
+
+# Window specifications #
+
+own_window yes
+own_window_type override
+own_window_transparent no
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 200 250
+maximum_width 200
+
+alignment tr
+gap_x 35
+gap_y 55
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftfont caviar dreams:size=8
+xftalpha 0.5
+
+uppercase no
+
+temperature_unit celsius
+
+default_color FFFFFF
+
+# Lua Load  #
+lua_load ~/.lua/scripts/clock_rings.lua
+lua_draw_hook_pre clock_rings
+
+TEXT
+${voffset 8}${color FF6600}${font caviar dreams:size=16}${time %A}${font}${voffset -8}${alignr 50}${color FFFFFF}${font caviar dreams:size=38}${time %e}${font}
+${color FFFFFF}${voffset -30}${color FFFFFF}${font caviar dreams:size=18}${time %b}${font}${voffset -3} ${color FFFFFF}${font caviar dreams:size=20}${time %Y}${font}${color FF6600}${hr}
+${font ::size=12}${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ EIDW temperature temperature 30} °C${font}
+${alignc}${voffset 40}${color black}${font :bold:size=8}${time %T} ${font}
+${voffset 75}
+${color FFFFFF}${font caviar dreams:size=8}Uptime: ${uptime}
+${color FFFFFF}${font caviar dreams:size=8}Load: ${loadavg}
+${color FFFFFF}${font caviar dreams:size=8}Battery: ${battery_time}
+${color FF6600}${font caviar dreams:size=8}${alignr}${nodename}
+${color FF6600}${font caviar dreams:size=8}${alignr}Arch Linux $machine
+${color FF6600}${font caviar dreams:size=8}${alignr}Kernel: ${kernel}
+
+${color FFFFFF}${goto 0}${voffset 35}${cpu cpu0}%
+${color FF6600}${goto 0}CPU
+
+${voffset -80}
+${color FFFFFF}${goto 27}${freq_g 1}
+${color FFFFFF}${goto 27}${freq_g 2}
+${color FFFFFF}${goto 27}${freq_g 3}
+${color FFFFFF}${goto 27}${freq_g 4}
+${voffset -60}${goto 80}${color FFFFFF}${font caviar dreams:size=8}Processes: ${alignr}${running_processes}/${processes}
+${goto 80}${top name 1} ${alignr}${top cpu 1}
+${goto 80}${top name 2} ${alignr}${top cpu 2}
+${goto 80}${top name 3} ${alignr}${top cpu 3}
+${goto 80}${top name 3} ${alignr}${top cpu 4}
+${voffset -60}
+${color FF6600}${font caviar dreams:size=7}${goto 56}G
+${color FF6600}${font caviar dreams:size=7}${goto 57}h
+${color FF6600}${font caviar dreams:size=7}${goto 57}z
+${font caviar dreams:size=8}
+
+${voffset 16}${color FFFFFF}${goto 46}${battery_short}
+${color FF6600}${goto 43}Battery
+${voffset -32}
+${font caviar dreams:size=8}${color FF6600}${goto 128}Net
+${color FFFFFF}${goto 128}${font caviar dreams:size=7}D${downspeed wlp3s0}
+${color FFFFFF}${goto 128}${font caviar dreams:size=6}U${upspeed wlp3s0}
+${voffset 35}${font caviar dreams:size=8}
+${voffset 2}${goto 142}${color FFFFFF}${mem}
+${voffset 3}${color FFFFFF}${goto 130}${memperc}%
+${color FF6600}${goto 130}RAM
+
+${voffset -90}${color FF6600}
+Usage:
+${top_mem name 1} ${top_mem mem 1}
+${top_mem name 2} ${top_mem mem 2}
+${top_mem name 3} ${top_mem mem 3}
+${top_mem name 4} ${top_mem mem 4}
+
+${color FFFFFF}${voffset 45}
+${alignc}Air
+${alignc}${hwmon 1 temp 15}°C 
+
+${voffset -50}
+${goto 35}${voffset 30}${hwmon 1 temp 1}°C${goto 145}${hwmon 1 temp 22}°C
+${goto 35}Bat${goto 145}Palm
+
+${voffset -27}${alignc}${hwmon 1 fan 1} 
+${alignc}RPM 
+
+${voffset 8}${alignc}Core  
+${voffset 12}${alignc}${hwmon 0 temp 2} | ${hwmon 0 temp 3}°C 
+
+${voffset -215}
+Left Palm: ${hwmon 1 temp 16}°C TCOD: ${hwmon 1 temp 5}°C TMOS: ${hwmon 1 temp 16}°C
+${wireless_essid wlp3s0} | Down ${totaldown wlp3s0} Up ${totalup wlp3s0}
+${voffset 215}
